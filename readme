@@ -1,3 +1,6 @@
 https://api.hypixel.net/skyblock/bazaar is what you type into address bar
 e2c97d53-e0af-4258-be02-563b67f80976 is the api key
 basically what i want to do is make a script that looks into you identifies how many griffin feathers you have and then multiples it by the insta sell value of 1 griffin feather and then theoreitcally tells you how much information you will make
+
+
+soo what we have to do is get the sell price from https://api.hypixel.net/skyblock/bazaar
