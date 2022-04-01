@@ -1,16 +1,20 @@
 import fetch from "node-fetch";
-let apiFile = require('../apiKey.json');
-let apiKey = apiFile["API_KEY"]
+//const fetch = require('node-fetch');
+//let apiFile = require('../apiKey.json');
+//let apiKey = apiFile["API_KEY"]
 
-const ign = "Porsha_boy"
-const playerUUID = ""   
 
-fetch(`https://api.hypixel.net/skyblock/bazaar`) // fetching from the api
-    .then(response => response.json()) // turning the info from the api from bytes to a json
+
+fetch(`https://api.hypixel.net/skyblock/bazaar`) 
+    .then(response => response.json())
     .then(data => {
-        let griffinInfo = response.json[""]
+       let griffinInfo = data["data.products.GRIFFIN_FEATHER.quick_status.buyOrders"]
         console.log(griffinInfo)
-        let apiKey
-    })
-    .catch(error => console.log("An error has occured, this is the messsage:", error)) // this is just to catch any errors
+//        console.log(data)
 
+    })
+    .catch(error => console.log("An error has occured, this is the messsage:", error)) // this is just to catch any errors for future me
+
+//    for (var GRIFFIN_FEATHER in data) {
+//        console.log(GRIFFIN_FEATHER)
+//    }

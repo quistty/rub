@@ -15,6 +15,7 @@
     "url": "git+https://github.com/quistty/griffin-feathers.git"
   },
   "author": "Porsha",
+  "type": "module",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/quistty/griffin-feathers/issues"
