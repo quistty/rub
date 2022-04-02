@@ -7,6 +7,7 @@
   },
   "name": "griffin-feathers",
   "version": "1.0.0",
+  "type": "module",
   "description": "A script that informs you on the profit margins made from griffin feathers ",
   "main": "index.js",
   "scripts": {
