@@ -1,12 +1,15 @@
 {
   "dependencies": {
-    "node-fetch": "^3.2.3"
+    "discord.js": "^13.6.0",
+    "dotenv": "^16.0.0",
+    "node-fetch": "^3.2.3",
+    "prompt": "^1.2.2",
+    "save": "^2.4.0"
   },
   "name": "griffin-feathers",
   "version": "1.0.0",
   "description": "A script that informs you on the profit margins made from griffin feathers ",
   "main": "getdata.js",
-  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
