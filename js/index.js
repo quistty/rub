@@ -37,6 +37,9 @@ client.on('message', message => {
     if(command === 'ping'){
         client.commands.get('ping').execute(message, args);
     }
+    if(command === 'pong'){
+        client.commands.get('pong').execute(message, args);
+    }
 
 
 });
