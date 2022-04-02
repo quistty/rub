@@ -17,8 +17,8 @@ fetch(`https://api.hypixel.net/skyblock/bazaar`)
         console.log("Rounded Griffin feather prices =", griffinInfoRounded)
 
         //asking and calculating how much profit you would make by selling at the current market rate
-        var grififnAmount = "875"
-        console.log(griffinInfoRounded *= grififnAmount)
+        var griffinAmount = "875"
+        console.log(griffinInfoRounded *= griffinAmount)
     })
     .catch(error => console.log("An error has occured, this is the messsage:", error)) // this is just to catch any errors
 
