@@ -35,21 +35,17 @@ fetch(`https://api.hypixel.net/skyblock/bazaar`)
        let griffinInfoRounded = Math.round(griffinInfo)
         console.log("Non-rounded Griffin Feather prices =", griffinInfo)
         console.log("Rounded Griffin feather prices =", griffinInfoRounded)
-
-        //asking and calculating how much profit you would make by selling at the current market rate
-        var griffinAmount = "875"
-        console.log(griffinInfoRounded *= griffinAmount)
     })
     .catch(error => console.log("An error has occured, this is the messsage:", error)) // this is just to catch any errors
 
 
-
+        //asking and calculating how much profit you would make by selling at the current market rate
+//        console.log(griffinInfoRounded *= griffinAmount)
 
 client.once('ready', () => {
     console.log('aye rub is online')
 });
 
-var griffinInfoRounded = await baitedgg();
 
 client.on('message', message => {
     if(!message.content.startsWith(prefix) || message.author.bot) return;
@@ -63,33 +59,22 @@ client.on('message', message => {
     if(command === 'pong'){
         message.channel.send('ping!')
     }
-    if(command === 'myass'){
-        message.channel.send('myass')
-    }
     if(command === 'griffin'){
         message.reply(
-            'How many griffin feathers have you bought or plan to buy?'
+            'How many griffin feathers have you bought?'
            );
-           
            // await the next message sent (in that channel) by the message author
            message.channel
             .awaitMessages((m) => m.author === message.author, { max: 1 })
             .then((collected) => {
-                var griffinAmount = collected
-                message.reply(
-                    "you will make:", griffinInfoRounded *= griffinAmount
-                );
+                let griffinAmount = collected
+                var griffinProfit = griffinInfoRounded *= griffinAmount
+                message.reply(griffinProfit);
             });
     }
 
 
 });
 
-
-function baitedgg(){
-    if(true){
-        
-    }
-}
 
 client.login(botToken);
