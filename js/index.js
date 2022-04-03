@@ -49,7 +49,7 @@ client.once('ready', () => {
     console.log('aye rub is online')
 });
 
-
+var griffinInfoRounded = await baitedgg();
 
 client.on('message', message => {
     if(!message.content.startsWith(prefix) || message.author.bot) return;
@@ -63,6 +63,9 @@ client.on('message', message => {
     if(command === 'pong'){
         message.channel.send('ping!')
     }
+    if(command === 'myass'){
+        message.channel.send('myass')
+    }
     if(command === 'griffin'){
         message.reply(
             'How many griffin feathers have you bought or plan to buy?'
@@ -74,7 +77,7 @@ client.on('message', message => {
             .then((collected) => {
                 var griffinAmount = collected
                 message.reply(
-                    griffinInfoRounded *= griffinAmount
+                    "you will make:", griffinInfoRounded *= griffinAmount
                 );
             });
     }
@@ -83,6 +86,10 @@ client.on('message', message => {
 });
 
 
-
+function baitedgg(){
+    if(true){
+        
+    }
+}
 
 client.login(botToken);
