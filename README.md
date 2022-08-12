@@ -1,4 +1,4 @@
-# Griffin-Feather-Bot
+# Bazzar-items-Bot
 A discord bot that will calculate how much money you would make by selling griffin feathers at the current margins. 
 
 # Installing the code on your computer
