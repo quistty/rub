@@ -25,15 +25,35 @@ const client = new Discord.Client();
 const prefix = "!";
 
 //                              code starts beneath
-let griffinAmount = 975;
+
+//used to turn the bot on
+client.once("ready", () => {
+  console.log("aye rub is online");
+});
+
+//variables that store the information about sugar cane
+var caneAmount,
+  caneBuyInfo,
+  caneSellInfo,
+  caneBuyInfoRounded,
+  caneSellInfoRounded;
+
 fetch(`https://api.hypixel.net/skyblock/bazaar`)
   .then((response) => response.json())
   .then((data) => {
     //importing all the data from the hypixel api and turning it into variables we can use
-    let griffinInfo = data.products.GRIFFIN_FEATHER.quick_status.buyPrice;
-    let griffinInfoRounded = Math.round(griffinInfo);
-    console.log("Non-rounded Griffin Feather prices =", griffinInfo);
-    console.log("Rounded Griffin feather prices =", griffinInfoRounded);
+
+    let caneSellInfo = data.products.ENCHANTED_SUGAR_CANE.quick_status.buyPrice;
+    let caneSellInfoRounded = Math.round(caneSellInfo);
+    let caneBuyInfo = data.products.ENCHANTED_SUGAR_CANE.quick_status.sellPrice;
+    let caneBuyInfoRounded = Math.round(caneBuyInfo);
+
+    console.log("Buy price for enchanted sugar cane is  =", caneBuyInfoRounded);
+
+    console.log(
+      "Sell price for enchanted sugar cane is =",
+      caneSellInfoRounded
+    );
   })
   .catch((error) =>
     console.log("An error has occured, this is the messsage:", error)
@@ -41,10 +61,6 @@ fetch(`https://api.hypixel.net/skyblock/bazaar`)
 
 //asking and calculating how much profit you would make by selling at the current market rate
 //        console.log(griffinInfoRounded *= griffinAmount)
-
-client.once("ready", () => {
-  console.log("aye rub is online");
-});
 
 client.on("message", (message) => {
   if (!message.content.startsWith(prefix) || message.author.bot) return;
@@ -58,15 +74,17 @@ client.on("message", (message) => {
   if (command === "pong") {
     message.channel.send("ping!");
   }
-  if (command === "griffin") {
-    message.reply("How many griffin feathers have you bought?");
+  if (command === "cane") {
+    message.reply("How much enchanted sugar cane have you bought?");
     // await the next message sent (in that channel) by the message author
     message.channel
       .awaitMessages((m) => m.author === message.author, { max: 1 })
       .then((collected) => {
-        let griffinAmount = 975;
-        var griffinProfit = (griffinInfoRounded *= griffinAmount);
-        message.reply(griffinProfit);
+        let caneAmount = 1328;
+        message.reply(
+          "congrats, you'd sell your cane for $",
+          (caneSellInfoRounded *= caneAmount)
+        );
       });
   }
 });
