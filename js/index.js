@@ -36,9 +36,8 @@ var caneAmount,
   caneBuyInfo,
   caneSellInfo,
   caneBuyInfoRounded,
-  caneSellInfoRounded;
-
-var caneAmount = 1328;
+  caneSellInfoRounded,
+  caneAmount;
 
 fetch(`https://api.hypixel.net/skyblock/bazaar`)
   .then((response) => response.json())
@@ -62,8 +61,6 @@ fetch(`https://api.hypixel.net/skyblock/bazaar`)
   ); // this is just to catch any errors
 
 //asking and calculating how much profit you would make by selling at the current market rate
-//        console.log(griffinInfoRounded *= griffinAmount)
-var caneChat = caneSellInfoRounded * caneAmount;
 
 client.on("message", (message) => {
   if (!message.content.startsWith(prefix) || message.author.bot) return;
@@ -78,12 +75,14 @@ client.on("message", (message) => {
     message.channel.send("ping!");
   }
   if (command === "cane") {
+    console.log(caneSellInfoRounded);
     message.reply("How much enchanted sugar cane have you bought?");
     // await the next message sent (in that channel) by the message author
     message.channel
       .awaitMessages((m) => m.author === message.author, { max: 1 })
       .then((collected) => {
-        message.reply(caneChat);
+        let caneAmount = 1328;
+        message.reply(caneSellInfoRounded);
       });
   }
 });
