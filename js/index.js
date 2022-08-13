@@ -38,6 +38,8 @@ var caneAmount,
   caneBuyInfoRounded,
   caneSellInfoRounded;
 
+var caneAmount = 1328;
+
 fetch(`https://api.hypixel.net/skyblock/bazaar`)
   .then((response) => response.json())
   .then((data) => {
@@ -61,6 +63,7 @@ fetch(`https://api.hypixel.net/skyblock/bazaar`)
 
 //asking and calculating how much profit you would make by selling at the current market rate
 //        console.log(griffinInfoRounded *= griffinAmount)
+var caneChat = caneSellInfoRounded * caneAmount;
 
 client.on("message", (message) => {
   if (!message.content.startsWith(prefix) || message.author.bot) return;
@@ -80,11 +83,7 @@ client.on("message", (message) => {
     message.channel
       .awaitMessages((m) => m.author === message.author, { max: 1 })
       .then((collected) => {
-        let caneAmount = 1328;
-        message.reply(
-          "congrats, you'd sell your cane for $",
-          (caneSellInfoRounded *= caneAmount)
-        );
+        message.reply(caneChat);
       });
   }
 });
