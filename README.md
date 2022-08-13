@@ -2,8 +2,8 @@
 A discord bot that will calculate how much money you would make by selling griffin feathers at the current margins. 
 
 # Installing the code on your computer
-First you need to install [node.js](https://nodejs.org/en/) if you haven't already done so. Tutorials on how to do so can be found online. Once installed you must clone this project. description of how to clone goes here
-Now open the file directory in cmd. Run `npm install`, you should see about 40 packets installed. Now you want to create a file inside of the folder that you cloned this project into. It should be named `botToken.json`. This file is used to hold our discord bot token. Now you want to put the following code in the file. 
+First you need to install [node.js](https://nodejs.org/en/) if you haven't already done so. Tutorials on how to do so can be found online. Once installed you must clone this project. If you're interested in editing the bot for your own use [fork](https://docs.github.com/en/get-started/quickstart/fork-a-repo) the project. If you'd like to contribute to the original bot you can make a pull request and we'll review your code.
+Now lets open the file directory in cmd. Run `npm install`, you should see about 40 packets installed. Now you want to create a file inside of the folder that you cloned this project into. It should be named `botToken.json`. This file is used to hold our discord bot token. Now you want to put the following code in the file. 
 ```
 {
     "botToken": "replace-this-text-but-keep-the-quotation-marks"
