@@ -32,12 +32,7 @@ client.once("ready", () => {
 });
 
 //variables that store the information about sugar cane
-var caneAmount,
-  caneBuyInfo,
-  caneSellInfo,
-  caneBuyInfoRounded,
-  caneSellInfoRounded,
-  caneAmount;
+var caneAmount, caneBuyInfo, caneSellInfo, caneAmount, caneSellInfoRounded;
 
 fetch(`https://api.hypixel.net/skyblock/bazaar`)
   .then((response) => response.json())
@@ -45,22 +40,14 @@ fetch(`https://api.hypixel.net/skyblock/bazaar`)
     //importing all the data from the hypixel api and turning it into variables we can use
 
     let caneSellInfo = data.products.ENCHANTED_SUGAR_CANE.quick_status.buyPrice;
-    let caneSellInfoRounded = Math.round(caneSellInfo);
     let caneBuyInfo = data.products.ENCHANTED_SUGAR_CANE.quick_status.sellPrice;
-    let caneBuyInfoRounded = Math.round(caneBuyInfo);
 
-    console.log("Buy price for enchanted sugar cane is  =", caneBuyInfoRounded);
-
-    console.log(
-      "Sell price for enchanted sugar cane is =",
-      caneSellInfoRounded
-    );
+    console.log("Buy price for enchanted sugar cane is  =", caneBuyInfo);
+    console.log("Sell price for enchanted sugar cane is =", caneSellInfo);
   })
   .catch((error) =>
     console.log("An error has occured, this is the messsage:", error)
   ); // this is just to catch any errors
-
-//asking and calculating how much profit you would make by selling at the current market rate
 
 client.on("message", (message) => {
   if (!message.content.startsWith(prefix) || message.author.bot) return;
@@ -75,15 +62,27 @@ client.on("message", (message) => {
     message.channel.send("ping!");
   }
   if (command === "cane") {
-    console.log(caneSellInfoRounded);
-    message.reply("How much enchanted sugar cane have you bought?");
-    // await the next message sent (in that channel) by the message author
-    message.channel
-      .awaitMessages((m) => m.author === message.author, { max: 1 })
-      .then((collected) => {
-        let caneAmount = 1328;
-        message.reply(caneSellInfoRounded);
-      });
+    fetch(`https://api.hypixel.net/skyblock/bazaar`)
+      .then((response) => response.json())
+      .then((data) => {
+        //importing all the data from the hypixel api and turning it into variables we can use
+        let caneAmount = data;
+        let caneSellInfo =
+          data.products.ENCHANTED_SUGAR_CANE.quick_status.buyPrice;
+        let caneBuyInfo =
+          data.products.ENCHANTED_SUGAR_CANE.quick_status.sellPrice;
+        let caneSellInfoRounded = Math.round(caneSellInfo);
+        message.reply("How much enchanted sugar cane have you bought?");
+        message.channel
+          .awaitMessages((m) => m.author === message.author, { max: 1 })
+          .then((collected) => {
+            var caneAmount = collected;
+            message.reply(caneSellInfoRounded * caneAmount);
+          });
+      })
+      .catch((error) =>
+        console.log("An error has occured, this is the messsage:", error)
+      ); // this is just to catch any errors
   }
 });
 
