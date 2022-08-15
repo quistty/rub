@@ -1,53 +1,23 @@
-// Define "require" and Discord.js
+// Defining stuff and starting Discord.js
 import { createRequire } from "module";
 const require = createRequire(import.meta.url);
-
-//gets the bot token code from a different file, so this repo can be uploaded to github
 let botTokenFile = require("../botToken.json");
 let botToken = botTokenFile["botToken"];
-
-//allows us to use fetch. The old way does not work anymore
 import fetch from "node-fetch";
 import prompt from "prompt";
-
-//imports the apikey and stuff
-//const fetch = require('node-fetch');
-//let apiFile = require('../apiKey.json');
-//let apiKey = apiFile["API_KEY"]
-
-prompt.start(); //starting prompt
-
-//importing discord stuff
+prompt.start();
 const Discord = require("discord.js");
-
 const client = new Discord.Client();
-
 const prefix = "!";
 
-//                              code starts beneath
+//code related to the discord bot command starts beneath
+// BOT ON
 
-//used to turn the bot on
 client.once("ready", () => {
   console.log("aye rub is online");
 });
 
-//variables that store the information about sugar cane
 var caneAmount, caneBuyInfo, caneSellInfo, caneAmount, caneSellInfoRounded;
-
-fetch(`https://api.hypixel.net/skyblock/bazaar`)
-  .then((response) => response.json())
-  .then((data) => {
-    //importing all the data from the hypixel api and turning it into variables we can use
-
-    let caneSellInfo = data.products.ENCHANTED_SUGAR_CANE.quick_status.buyPrice;
-    let caneBuyInfo = data.products.ENCHANTED_SUGAR_CANE.quick_status.sellPrice;
-
-    console.log("Buy price for enchanted sugar cane is  =", caneBuyInfo);
-    console.log("Sell price for enchanted sugar cane is =", caneSellInfo);
-  })
-  .catch((error) =>
-    console.log("An error has occured, this is the messsage:", error)
-  ); // this is just to catch any errors
 
 client.on("message", (message) => {
   if (!message.content.startsWith(prefix) || message.author.bot) return;
@@ -56,33 +26,66 @@ client.on("message", (message) => {
   const command = args.shift().toLowerCase();
 
   if (command === "ping") {
-    message.channel.send("pong!");
+    message.channel.send(`🏓Ping is ${client.ws.ping} ms`);
   }
+
   if (command === "pong") {
     message.channel.send("ping!");
+  }
+  if (command === "caneprice") {
+    fetch(`https://api.hypixel.net/skyblock/bazaar`)
+      .then((response) => response.json())
+      .then((data) => {
+        //importing all the data from the hypixel api and turning it into variables we can use
+        let caneSellInfo =
+          data.products.ENCHANTED_SUGAR_CANE.quick_status.buyPrice;
+        let caneBuyInfo =
+          data.products.ENCHANTED_SUGAR_CANE.quick_status.sellPrice;
+        let caneSellInfoRounded = Math.round(caneSellInfo);
+        let caneBuyInfoRounded = Math.round(caneBuyInfo);
+        message.channel.send(
+          `You can sell sugar cane for ${caneSellInfoRounded} and buy it for ${caneBuyInfoRounded}`
+        );
+      })
+      .catch((error) =>
+        console.log("An error has occured, this is the messsage:", error)
+      );
   }
   if (command === "cane") {
     fetch(`https://api.hypixel.net/skyblock/bazaar`)
       .then((response) => response.json())
       .then((data) => {
         //importing all the data from the hypixel api and turning it into variables we can use
-        let caneAmount = data;
         let caneSellInfo =
           data.products.ENCHANTED_SUGAR_CANE.quick_status.buyPrice;
         let caneBuyInfo =
           data.products.ENCHANTED_SUGAR_CANE.quick_status.sellPrice;
         let caneSellInfoRounded = Math.round(caneSellInfo);
+        let caneBuyInfoRounded = Math.round(caneBuyInfo);
         message.reply("How much enchanted sugar cane have you bought?");
         message.channel
           .awaitMessages((m) => m.author === message.author, { max: 1 })
-          .then((collected) => {
-            var caneAmount = collected;
-            message.reply(caneSellInfoRounded * caneAmount);
+          .then((message) => {
+            message = message.first();
+            var caneAmount = parseInt(message);
+            console.log(`${message.author} has ${caneAmount} cane`);
+            message.channel.send(
+              `${message.author}, you could sell your cane for ${
+                caneSellInfoRounded * caneAmount
+              } coins.`
+            );
+            if (caneSellInfoRounded > caneBuyInfoRounded) {
+              message.channel.send(
+                `Did you know that you can flip cane? You would make ${
+                  caneSellInfoRounded - caneBuyInfoRounded
+                } per piece.`
+              );
+            }
           });
       })
       .catch((error) =>
         console.log("An error has occured, this is the messsage:", error)
-      ); // this is just to catch any errors
+      );
   }
 });
 
