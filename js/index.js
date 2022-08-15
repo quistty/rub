@@ -10,7 +10,7 @@ const Discord = require("discord.js");
 const client = new Discord.Client();
 const prefix = "!";
 
-//code related to the discord bot command starts beneath
+
 // BOT ON
 
 client.once("ready", () => {
