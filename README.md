@@ -23,4 +23,4 @@ The commands for the bot are the following
 
 # Current version
 
-v1.0
+[v1.0.0](https://github.com/quistty/rub/releases/tag/release)
